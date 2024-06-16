@@ -38,8 +38,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Listings}/{action=Index}/{id?}");
-
 app.Run();
