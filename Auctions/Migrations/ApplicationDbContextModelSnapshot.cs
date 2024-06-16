@@ -51,7 +51,7 @@ namespace Auctions.Migrations
 
                     b.HasIndex("ListingId");
 
-                    b.ToTable("Bids");
+                    b.ToTable("Bids", (string)null);
                 });
 
             modelBuilder.Entity("Auctions.Models.Comment", b =>
@@ -84,7 +84,7 @@ namespace Auctions.Migrations
 
                     b.HasIndex("ListingId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("Auctions.Models.Listing", b =>
@@ -121,7 +121,7 @@ namespace Auctions.Migrations
 
                     b.HasIndex("IdentityUserId");
 
-                    b.ToTable("Listings");
+                    b.ToTable("Listings", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

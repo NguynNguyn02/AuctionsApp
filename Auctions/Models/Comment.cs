@@ -12,6 +12,9 @@ namespace Auctions.Models
         public string? IdentityUserId { get; set; }
         [ForeignKey("IdentityUserId")]
         public IdentityUser? User { get; set; }
+        public int? ListingId { get; set; }
+        [ForeignKey("ListingId")]
+        public Listing? Listing { get; set; }
         public List<Bid>? Bids { get; set; }
         public List<Comment>? Comments { get; set; }
     }
