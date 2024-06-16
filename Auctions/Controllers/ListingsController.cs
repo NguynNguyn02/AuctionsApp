@@ -14,12 +14,14 @@ namespace Auctions.Controllers
     public class ListingsController : Controller
     {
         private readonly IListingsService _listingsService;
+        private readonly IBidsService _bidsService;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ListingsController(IListingsService listingsService, IWebHostEnvironment webHostEnvironment)
+        public ListingsController(IListingsService listingsService, IBidsService bidsService, IWebHostEnvironment webHostEnvironment)
         {
             _listingsService = listingsService;
             _webHostEnvironment = webHostEnvironment;
+            _bidsService = bidsService;
         }
 
         // GET: Listings
@@ -51,8 +53,25 @@ namespace Auctions.Controllers
 
             return View(listing);
         }
-
-        // GET: Listings/Create
+        [HttpPost]
+        public async Task<ActionResult> AddBid([Bind("Id,Price,ListingId,IdentityUserId")]Bid bid)
+        {
+            if (ModelState.IsValid)
+            {
+                await _bidsService.Add(bid);
+            }
+            var listing = await _listingsService.GetById(bid.ListingId);
+            await _listingsService.SaveChanges();
+            return View("Details",listing);
+        }
+        public async Task<ActionResult> CloseBidding(int id)
+        {
+            var listing = await _listingsService.GetById(id);
+            listing.IsSold = true;
+            await _listingsService.SaveChanges();
+            return View("Details",listing); 
+        }
+        // GET: Listings/Create 
         public IActionResult Create()
         {
             return View();
