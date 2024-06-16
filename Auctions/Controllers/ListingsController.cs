@@ -61,6 +61,7 @@ namespace Auctions.Controllers
                 await _bidsService.Add(bid);
             }
             var listing = await _listingsService.GetById(bid.ListingId);
+            listing.Price = bid.Price;
             await _listingsService.SaveChanges();
             return View("Details",listing);
         }
